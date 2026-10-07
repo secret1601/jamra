@@ -72,12 +72,13 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 #log .tab span { display: none; }
 #log .tab { white-space: nowrap; }
 #ownList { list-style: none; margin: 0; padding: 0 8px 8px; overflow-y: auto; flex: 1; }
+#ownList li .sellall { grid-column: 3; grid-row: 2; }
 #ownList li { display: grid; grid-template-columns: 10px 1fr auto; gap: 4px 8px; align-items: center; padding: 6px 8px; border-radius: 10px; margin-bottom: 4px; background: rgba(0,0,0,.18); font-size: 14px; }
 #ownList li.none { opacity: .45; }
 #ownList li i { width: 10px; height: 10px; border-radius: 50%; }
 #ownList li .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #ownList li .cnt { font-family: var(--display); font-size: 17px; }
-#ownList li .sub2 { grid-column: 2 / 4; font-size: 12px; color: var(--ink-dim); }
+#ownList li .sub2 { grid-column: 2 / 3; font-size: 12px; color: var(--ink-dim); }
 .tablewrap { overflow-x: auto; }
 table.dex { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 460px; }
 table.dex th { white-space: nowrap; text-align: left; font-weight: 400; color: var(--ink-dim); font-size: 13px; padding: 4px 6px; border-bottom: 1px solid var(--line); }
@@ -115,7 +116,7 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 #logStats { padding: 8px 12px 10px; font-size: 13px; color: var(--ink-dim); border-top: 1px solid var(--line); }
 
 /* ---------- 하단 컨트롤 ---------- */
-#controls { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr .6fr .6fr .6fr .6fr .6fr; gap: 8px; padding: 10px 12px 12px; }
+#controls { display: grid; grid-template-columns: 1.4fr 1fr .9fr 1fr 1fr 1fr .55fr .55fr .55fr .55fr .55fr; gap: 8px; padding: 10px 12px 12px; }
 .btn { border: 1px solid var(--line); background: var(--quilt-2); border-radius: 16px; padding: 8px 6px; font-size: 16px; line-height: 1.15; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; transition: transform .08s, filter .15s; }
 .btn small { font-size: 12px; color: var(--ink-dim); }
 .btn:active { transform: scale(.96); }
@@ -125,7 +126,18 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 #btnDraw.ready { animation: breathe 2.4s ease-in-out infinite; }
 @keyframes breathe { 50% { box-shadow: inset 0 -6px 0 rgba(0,0,0,.15), 0 0 0 8px rgba(255,210,63,.18); } }
 #btnMode { background: #3a1a5e; border-color: rgba(169,139,255,.6); }
-#btnMode.used, #btnCreator.used { opacity: .55; }
+#btnMode.used, #btnCreator.used, #btnGod.used { opacity: .55; }
+#btnGod { background: linear-gradient(135deg, #6e5a1e, #3b2f6e); border-color: rgba(255,210,63,.65); }
+.btn .short { display: none; }
+.sellall { border: 1px solid rgba(255,210,63,.5); background: rgba(255,210,63,.1); color: var(--gold); border-radius: 8px; font-size: 12px; padding: 3px 8px; white-space: nowrap; }
+.sellall.armed { background: var(--danger); border-color: var(--danger); color: #fff; }
+#sheet .bulk { width: 100%; margin-top: 6px; min-height: 40px; border-color: rgba(255,210,63,.4); color: var(--gold); }
+#sheet .bulk small { color: var(--ink-dim); }
+#gacha.god .g-bg { background: radial-gradient(circle, #fffdf0, #fff1b8 45%, #ffd36b 100%) !important; }
+#gacha.god .g-pre, #gacha.god .g-role, #gacha.god .g-desc, #gacha.god .g-skip { color: #5a3a00; }
+#gacha.god .g-name { background: linear-gradient(90deg, #7a4b00, #c98a00, #5a3a00, #c98a00, #7a4b00); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 2.4s linear infinite; filter: drop-shadow(0 3px 0 rgba(90,58,0,.35)); }
+#ult.god div { color: #fffdf0; text-shadow: 0 0 22px #ffd23f, 0 0 60px #fff3a3, 0 4px 0 #8a5a00; }
+#logList li.godlog { background: linear-gradient(90deg, #fff8dc, #ffd23f, #fff8dc); color: #4a3000; font-size: 15px; animation: logIn .35s, glow .8s infinite; }
 #btnCreator { background: linear-gradient(135deg, #5a3b6e, #3b2f6e); border-color: rgba(255,196,242,.6); }
 #gacha.creator .g-bg { background: radial-gradient(circle, #ffffff, #fff1fb 50%, #ffd9f2 100%) !important; }
 #gacha.creator .g-pre, #gacha.creator .g-role, #gacha.creator .g-desc, #gacha.creator .g-skip { color: #3a2a55; }
@@ -202,7 +214,8 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 #ult.on { animation: ultIn 1.7s forwards; }
 #ult div { font-family: var(--display); font-size: clamp(30px, 7.5vw, 86px); text-align: center; line-height: 1.05; color: #fff; padding: 0 12px;
   text-shadow: 0 0 18px #8ff3ff, 0 0 40px #b05cff, 0 4px 0 #3b0f80; }
-@keyframes ultIn { 0% { opacity: 0; transform: scale(2.4); } 12% { opacity: 1; transform: scale(1); } 75% { opacity: 1; transform: scale(1.04); } 100% { opacity: 0; transform: scale(1.1); } }
+@keyframes ultIn { 0% { opacity: 0; transform: scale(.85); filter: blur(8px); } 18% { opacity: 1; transform: scale(1); filter: blur(0); } 75% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.06); filter: blur(4px); } }
+#ult.on { animation-timing-function: cubic-bezier(.2,.8,.2,1); }
 #pausedTag { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.6); padding: 6px 16px; border-radius: 999px; display: none; font-size: 16px; z-index: 4; }
 #pausedTag.on { display: block; }
 
@@ -254,30 +267,52 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 
 /* ---------- 반응형 ---------- */
 @media (max-width: 820px) {
-  #hud { gap: 6px; padding: 6px 8px; }
-  #hud h1 { font-size: 18px; width: 100%; margin: 0; }
-  .stat { padding: 3px 9px; }
-  .stat b { font-size: 17px; }
-  .stat.gold b { font-size: 19px; }
-  #bossbar { flex-basis: 100%; }
-  #main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; padding: 0 8px; gap: 6px; }
-  #log { flex-direction: row; border-radius: 14px; align-items: center; }
+  #hud { gap: 5px; padding: 6px 8px 4px; flex-wrap: nowrap; justify-content: space-between; }
+  #hud h1 { display: none; }
+  .stat { padding: 3px 9px; flex: 1 1 0; justify-content: center; min-width: 0; }
+  .stat span { font-size: 11px; }
+  .stat b { font-size: 16px; }
+  .stat.gold { flex: 1.4 1 0; }
+  .stat.gold b { font-size: 18px; }
+  #bossbar { position: absolute; left: 8px; right: 8px; top: 46px; z-index: 6; background: rgba(27,20,66,.85); padding: 4px 8px; border-radius: 10px; }
+  #main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; padding: 0 6px; gap: 4px; }
+  #cv { border-radius: 16px; }
+  #log { flex-direction: row; border-radius: 12px; align-items: center; }
   #log .tabs, #logStats, #ownList { display: none !important; }
-  #logList { display: flex; gap: 6px; padding: 6px; overflow-x: auto; overflow-y: hidden; }
-  #logList li { margin: 0; flex: none; max-width: 150px; padding: 5px 8px; font-size: 13px; }
+  #logList { display: flex; gap: 5px; padding: 4px; overflow-x: auto; overflow-y: hidden; }
+  #logList li { margin: 0; flex: none; max-width: 140px; padding: 4px 8px; font-size: 12px; }
   #logList li .gr { display: none; }
   #logList li.empty { max-width: none; }
-  #controls { grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 6px 8px 8px; }
-  #btnDraw { grid-column: 1 / -1; min-height: 54px; flex-direction: row; gap: 10px; font-size: 21px; }
-  .btn { min-height: 42px; font-size: 14px; padding: 4px; }
-  .btn small { font-size: 11px; }
-  #btnSpeed small, #btnPause small, #btnSound small, #btnInfo small, #btnRank small { display: none; }
-  #controls { grid-template-columns: repeat(3, 1fr); }
-  #btnMode small, #btnCreator small { font-size: 10px; }
+  #controls { grid-template-columns: repeat(5, 1fr); gap: 5px; padding: 6px 6px 8px; }
+  #btnDraw { grid-column: 1 / -1; min-height: 50px; flex-direction: row; gap: 10px; font-size: 20px; }
+  .btn { min-height: 44px; font-size: 13px; padding: 3px 2px; border-radius: 12px; }
+  .btn .full { display: none; } .btn .short { display: inline; }
+  .btn small { font-size: 10px; } .btn small.opt { display: none; }
+  #toasts { top: 52px; }
+  .toast { font-size: 13px; padding: 6px 12px; }
   .races { grid-template-columns: 1fr; }
   table.dex { min-width: 0; font-size: 13px; }
   table.dex td, table.dex th { padding: 5px 3px; }
   table.dex .hero { font-size: 14px !important; white-space: normal; word-break: keep-all; }
+  .card { padding: 16px; border-radius: 18px; }
+  #sheet { padding: 10px; bottom: 4px; max-height: calc(100% - 8px); overflow-y: auto; }
+  #sheet canvas { width: 56px; height: 56px; }
+  #sheet .desc { display: none; }
+  #sheet table { font-size: 13px; }
+}
+/* 가로로 눕힌 휴대폰: 버튼을 오른쪽 세로 열로 */
+@media (orientation: landscape) and (max-height: 520px) {
+  #app { grid-template-columns: 1fr 230px; grid-template-rows: auto 1fr; max-width: none; }
+  #hud { grid-column: 1 / -1; flex-wrap: nowrap; padding: 4px 8px; }
+  #hud h1 { display: none; }
+  .stat { padding: 2px 9px; } .stat b { font-size: 15px; }
+  #main { grid-template-columns: 1fr; grid-template-rows: 1fr; padding: 0 0 4px 6px; }
+  #log { display: none; }
+  #controls { grid-column: 2; grid-row: 2; grid-template-columns: 1fr 1fr; align-content: start; overflow-y: auto; padding: 0 6px 6px; gap: 5px; }
+  #btnDraw { grid-column: 1 / -1; min-height: 46px; font-size: 18px; }
+  .btn { min-height: 38px; font-size: 13px; }
+  .btn .full { display: none; } .btn .short { display: inline; }
+  .btn small { font-size: 10px; } .btn small.opt { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .shake, .shake-big { animation: none; }
@@ -316,15 +351,16 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 
   <nav id="controls">
     <button class="btn" id="btnDraw">영웅 뽑기<small id="drawSub">100 잠라석</small></button>
-    <button class="btn" id="btnGlobal">전체 공격력 강화<small id="globalSub">Lv.0</small></button>
-    <button class="btn" id="btnResearch">종족 연구<small id="researchSub">말랑 0 · 마귀 0 · 잠라 0</small></button>
-    <button class="btn" id="btnMode">대잠라 모드 ON<small id="modeSub">0/5회 사용</small></button>
-    <button class="btn" id="btnCreator">창조자 소환<small id="creatorSub">1회 한정</small></button>
-    <button class="btn" id="btnSpeed">속도<small id="speedSub">×1</small></button>
-    <button class="btn" id="btnPause">일시정지<small>P</small></button>
-    <button class="btn" id="btnSound">소리<small id="soundSub">켜짐</small></button>
-    <button class="btn" id="btnInfo">도감<small>확률·보유</small></button>
-    <button class="btn" id="btnRank">랭킹<small>친구 기록</small></button>
+    <button class="btn" id="btnGlobal"><span class="full">전체 공격력 강화</span><span class="short">전체강화</span><small id="globalSub">Lv.0</small></button>
+    <button class="btn" id="btnResearch"><span class="full">종족 연구</span><span class="short">연구</span><small id="researchSub" class="opt">말랑 0 마귀 0 잠라 0</small></button>
+    <button class="btn" id="btnMode"><span class="full">대잠라 모드 ON</span><span class="short">대잠라</span><small id="modeSub">0/5회 사용</small></button>
+    <button class="btn" id="btnCreator"><span class="full">창조자 소환</span><span class="short">창조자</span><small id="creatorSub">1회 한정</small></button>
+    <button class="btn" id="btnGod"><span class="full">절대잠라신 소환</span><span class="short">신</span><small id="godSub">1회 한정</small></button>
+    <button class="btn" id="btnSpeed"><span class="full">속도</span><span class="short">속도</span><small id="speedSub">×1</small></button>
+    <button class="btn" id="btnPause"><span class="full" id="pauseFull">일시정지</span><span class="short" id="pauseShort">정지</span><small class="opt">P</small></button>
+    <button class="btn" id="btnSound"><span class="full">소리</span><span class="short">소리</span><small id="soundSub">켜짐</small></button>
+    <button class="btn" id="btnInfo"><span class="full">도감</span><span class="short">도감</span><small class="opt">확률·보유</small></button>
+    <button class="btn" id="btnRank"><span class="full">랭킹</span><span class="short">랭킹</span><small class="opt">친구 기록</small></button>
   </nav>
 </div>
 
@@ -346,7 +382,7 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
   <div class="title"><span>점점 말도 안 되게 거창해지는</span>잠라 운빨 디펜스</div>
   <div class="escalate" id="escalate"></div>
   <button class="bigbtn" id="btnStart">게임 시작</button>
-  <div class="small-note" id="startNote">뽑고, 강화하고, 연구해서 알람시계 군단으로부터 잠라의 잠을 지켜라.<br>영웅은 끌어서 원하는 곳에 배치할 수 있다. 길이 두 방향으로 지나가는 꼭짓점이 명당.<br>PC 단축키: D 뽑기, P 일시정지, 1·2·3·5 속도, Tab 영웅 선택, U 강화, X 방출, R 랭킹</div>
+  <div class="small-note" id="startNote">뽑고, 강화하고, 연구해서 알람시계 군단으로부터 잠라의 잠을 지켜라.<br>영웅은 끌어서 원하는 곳에 배치할 수 있다. 길이 두 방향으로 지나가는 꼭짓점이 명당.<br>PC 단축키: D 뽑기, P 일시정지, 1~6·8·0 속도(0은 ×10), Tab 영웅 선택, U 강화, X 방출, R 랭킹</div>
 </div></div>
 
 <div class="modal" id="researchModal"><div class="card">
@@ -361,7 +397,7 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
   <h2>도감</h2>
   <p class="sub">뽑기 1회 100 잠라석. 이름이 길어질수록 확률은 짧아진다. 강화 레벨은 등급 전체가 공유한다.</p>
   <div class="tablewrap"><table class="dex" id="dex"></table></div>
-  <p class="sub" style="margin-top:14px">대잠라 모드로 부른 태초·우주 신, 소환 버튼으로 부른 창조자가 있을 때 같은 등급이 뽑기에서 또 나오면, 새로 생기지 않고 그 등급이 공명해서 무료로 1레벨 오른다. 레벨 상한은 없다.</p>
+  <p class="sub" style="margin-top:14px">대잠라 모드로 부른 태초·우주 신, 소환 버튼으로 부른 창조자·절대잠라신이 있을 때 같은 등급이 뽑기에서 또 나오면, 새로 생기지 않고 그 등급이 공명해서 무료로 1레벨 오른다. 레벨 상한은 없다.</p>
 </div></div>
 
 <div class="modal" id="modeModal"><div class="card" style="width:min(460px,100%);text-align:center">
@@ -376,7 +412,7 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
 <div class="modal" id="rankModal"><div class="card" style="width:min(560px,100%)">
   <button class="close" data-close aria-label="닫기">×</button>
   <h2>친구 랭킹</h2>
-  <p class="sub">게임이 끝날 때마다 내 최고 기록이 자동으로 올라간다. 도달 웨이브가 높은 순, 같으면 처치 수 순. 🌌는 대잠라 모드, ✨는 창조자 소환을 쓴 기록.</p>
+  <p class="sub">게임이 끝날 때마다 내 최고 기록이 자동으로 올라간다. 도달 웨이브가 높은 순, 같으면 처치 수 순. 🌌는 대잠라 모드, ✨는 창조자 소환, 👑는 절대잠라신 소환을 쓴 기록.</p>
   <div id="rankBody"></div>
 </div></div>
 
@@ -385,6 +421,15 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
   <p class="sub">우주 신보다 한 단계 위, 창조자 등급 「창조주 잠라: 모든 꿈의 시작」을 소환한다. 1레벨만으로 100웨이브까지 버틸 수 있는 힘. 한 판에 한 번, 빈자리 1칸 필요. 랭킹에는 ✨ 표시가 붙는다.</p>
   <div style="display:flex;gap:8px;justify-content:center">
     <button class="bigbtn" id="btnCreatorGo" style="font-size:20px;padding:12px 26px;background:#ffe9f8">창조한다</button>
+    <button class="btn" data-close style="padding:0 22px">취소</button>
+  </div>
+</div></div>
+
+<div class="modal" id="godModal"><div class="card" style="width:min(460px,100%);text-align:center">
+  <h2>절대잠라신 소환?</h2>
+  <p class="sub">창조자보다 위, 신 등급 「절대잠라신」을 소환한다. 10초마다 「모두 잘 자」로 적 전원을 재우고, 1레벨 혼자서도 150웨이브 이상 버틴다. 한 판에 한 번, 빈자리 1칸 필요. 랭킹에는 👑 표시가 붙는다.</p>
+  <div style="display:flex;gap:8px;justify-content:center">
+    <button class="bigbtn" id="btnGodGo" style="font-size:20px;padding:12px 26px;background:#fff3a3">재운다</button>
     <button class="btn" data-close style="padding:0 22px">취소</button>
   </div>
 </div></div>
@@ -403,11 +448,15 @@ table.dex .hero { font-family: var(--display); white-space: normal; }
  *  밸런스 수치는 전부 CONFIG 에 모여 있으니 여기만 고치면 됨.
  * ========================================================= */
 const CONFIG = {
-  world: { w: 720, h: 600 },
-  // 적 이동 경로 (필드를 ㄷ자로 한 바퀴 돌아 왼쪽 방어선으로)
-  path: [[-30, 60], [660, 60], [660, 540], [60, 540], [60, 150]],
-  // 자유 배치 영역 (길 안쪽 사각형). gap은 자동 배치 때만 쓰는 간격 (직접 옮길 땐 겹쳐도 됨)
-  place: { x0: 100, x1: 620, y0: 100, y1: 500, gap: 60 },
+  // 가로 화면용 레이아웃. 세로 화면(모바일)은 이걸 x↔y 전치해서 씀
+  layout: {
+    w: 720, h: 600,
+    path: [[-30, 60], [660, 60], [660, 540], [60, 540], [60, 150]], // 필드를 한 바퀴 돌아 방어선으로
+    place: { x0: 100, x1: 620, y0: 100, y1: 500 },                 // 영웅 자유 배치 영역
+    field: [110, 112, 500, 376],                                    // 이불(배경) 사각형
+    spawnLabel: [40, 36], leakLabel: [60, 170],
+  },
+  placeGap: 60, // 자동 배치 때만 쓰는 간격 (직접 옮길 땐 겹쳐도 됨)
   maxHeroes: 50,
   startGold: 250,
   drawCost: 100,
@@ -427,6 +476,7 @@ const CONFIG = {
     { key: 'origin',    name: '태초',   color: '#fff6d8', rate: 0.219, upBase: 450 },
     { key: 'cosmic',    name: '우주 신', color: '#8ff3ff', rate: 0.05,  upBase: 700 },
     { key: 'creator',   name: '창조자', color: '#ffd9f7', rate: 0.01,  upBase: 1000 },
+    { key: 'god',       name: '신',     color: '#fff3a3', rate: 0.002, upBase: 1400 },
   ],
 
   races: {
@@ -444,8 +494,11 @@ const CONFIG = {
 
   modeMax: 5,          // 대잠라 모드 사용 가능 횟수
   creatorMax: 1,       // 창조자 소환 버튼 사용 가능 횟수
+  godMax: 1,           // 절대잠라신 소환 버튼 사용 가능 횟수
   levelAtkMul: 1.19,   // 레벨당 공격력 +19%
-  upgradeGrowth: 1.22, // 강화비용 = 기본 × 1.22^(Lv-1)
+  upgradeGrowth: 1.17, // 강화비용 = 기본 × 1.17^(Lv-1)
+  upBaseMul: 0.75,     // 등급별 기본 강화비용에 곱함 (전체 25% 할인)
+  copyCostStep: 0.06,  // 같은 등급 1기 추가될 때마다 그 등급 강화비 +6%
   maxLevel: Infinity,   // 레벨 상한 없음 (비용이 기하급수로 오름)
   globalUp: { base: 100, growth: 1.3, perLv: 0.05, max: 30 },
   sellBase: 30, sellPerGrade: 15, // 강화는 등급에 남으므로 방출 환급은 기본값만
@@ -497,6 +550,10 @@ const HEROES = [
     atk: 1.6e10, aspd: 2.0, range: 1000, aoe: 260, lvAoe: 0.02, lvSkill: 0.06, pierce: 1, bossMul: 2, crit: 0.2, critMul: 2,
     ult: { name: '천지창조', cd: 12, mul: 8, bossFull: true },
     desc: '잠라가 꾼 꿈이 우주가 됐다. 이건 그 꿈을 꾸던 본인이다. 1레벨만으로 100웨이브까지 숙면 보장.' },
+  { id: 'absolute', grade: 11, race: 'jamra', name: '절대잠라신', role: '전원 강제 취침',
+    atk: 3e13, aspd: 2.5, range: 1000, aoe: 320, lvAoe: 0.02, lvSkill: 0.06, pierce: 1, bossMul: 3, crit: 0.25, critMul: 2.5,
+    ult: { name: '모두 잘 자', cd: 10, mul: 10, bossFull: true, sleep: 3 },
+    desc: '창조자조차 이 신의 꿈속 등장인물이었다. 10초마다 "모두 잘 자" 한마디로 적 전원을 재우고 두들긴다.' },
 ];
 const HERO_BY_ID = Object.fromEntries(HEROES.map(h => [h.id, h]));
 const HERO_BY_GRADE = HEROES.slice().sort((a, b) => a.grade - b.grade);
@@ -525,13 +582,33 @@ class JamraGame {
   constructor(opts = {}) {
     this.rng = opts.rng || Math.random;
     this.emit = opts.emit || (() => {});
-    this.path = buildPath(CONFIG.path);
-    // 자동 배치 후보 지점 (20px 격자)
-    const P = CONFIG.place; this.candidates = [];
+    this.portrait = false; this.applyLayout();
+    this.reset();
+  }
+
+  // 세로형 = 가로형의 x↔y 전치. 전치는 자기 자신이 역연산이라 화면을 돌려도 영웅 좌표를 그대로 뒤집으면 됨
+  makeLayout(portrait) {
+    const L = CONFIG.layout; if (!portrait) return L;
+    const T = ([x, y]) => [y, x];
+    return { w: L.h, h: L.w, path: L.path.map(T),
+      place: { x0: L.place.y0, x1: L.place.y1, y0: L.place.x0, y1: L.place.x1 },
+      field: [L.field[1], L.field[0], L.field[3], L.field[2]],
+      spawnLabel: T(L.spawnLabel).map((v, i) => i ? v + 10 : v + 20), leakLabel: T(L.leakLabel) };
+  }
+  applyLayout() {
+    this.L = this.makeLayout(this.portrait);
+    this.path = buildPath(this.L.path);
+    const P = this.L.place; this.candidates = [];
     for (let y = P.y0; y <= P.y1; y += 20) for (let x = P.x0; x <= P.x1; x += 20) this.candidates.push({ x, y });
     this.pathSamples = [];
     for (let d = 0; d < this.path.total; d += 20) this.pathSamples.push(this.posAt(d));
-    this.reset();
+  }
+  setPortrait(p) {
+    if (p === this.portrait) return false;
+    this.portrait = p; this.applyLayout();
+    for (const h of this.heroes || []) { const x = h.x; h.x = h.y; h.y = x; }
+    for (const e of this.enemies || []) { const q = this.posAt(e.dist); e.x = q.x; e.y = q.y; }
+    return true;
   }
 
   reset() {
@@ -542,7 +619,7 @@ class JamraGame {
     this.phase = 'idle'; this.waveTime = 0; this.breakT = 0;
     this.research = { mallang: 0, magwi: 0, jamra: 0 };
     this.gradeLv = CONFIG.grades.map(() => 1); // 등급별 공유 레벨
-    this.globalLv = 0; this.modeUses = 0; this.creatorUses = 0; this.victory = false;
+    this.globalLv = 0; this.modeUses = 0; this.creatorUses = 0; this.godUses = 0; this.victory = false;
     this.drawLog = []; this.draws = 0; this.bestGrade = -1;
     this.pullCounts = CONFIG.grades.map(() => 0); // 등급별 누적 뽑은 횟수
     this.uid = 1; this._statsDirty = true;
@@ -550,7 +627,8 @@ class JamraGame {
 
   get modeUsed() { return this.modeUses > 0; }
   get creatorUsed() { return this.creatorUses > 0; }
-  isLocked(h) { return !!(h.fromMode || h.fromCreator); } // 버튼으로 소환된 영웅은 방출 불가
+  get godUsed() { return this.godUses > 0; }
+  isLocked(h) { return !!(h.fromMode || h.fromCreator || h.fromGod); } // 버튼으로 소환된 영웅은 방출 불가
 
   start() { if (this.started) return; this.started = true; this.startWave(1); }
 
@@ -658,8 +736,10 @@ class JamraGame {
   /* ---------- 비용 ---------- */
   upgradeCost(h) {
     if (h.level >= CONFIG.maxLevel) return null;
-    return Math.round(CONFIG.grades[h.def.grade].upBase * Math.pow(CONFIG.upgradeGrowth, h.level - 1));
+    return Math.round(CONFIG.grades[h.def.grade].upBase * CONFIG.upBaseMul * Math.pow(CONFIG.upgradeGrowth, h.level - 1) * this.copyCostMul(h.def.grade));
   }
+  // 같은 등급을 많이 깔수록 그 등급 강화비가 조금씩 오름 (일반 몰빵 견제, 뽑기 운의 가치 유지)
+  copyCostMul(g) { return 1 + CONFIG.copyCostStep * Math.max(0, this.gradeCount(g) - 1); }
   globalCost() {
     if (this.globalLv >= CONFIG.globalUp.max) return null;
     return Math.round(CONFIG.globalUp.base * Math.pow(CONFIG.globalUp.growth, this.globalLv));
@@ -668,8 +748,8 @@ class JamraGame {
   sellValue(h) { return CONFIG.sellBase + CONFIG.sellPerGrade * h.def.grade; }
   gradeCount(g) { return this.heroes.filter(h => h.def.grade === g).length; }
   freeCount() { return CONFIG.maxHeroes - this.heroes.length; }
-  clampPos(x, y) { const P = CONFIG.place; return { x: Math.max(P.x0, Math.min(P.x1, x)), y: Math.max(P.y0, Math.min(P.y1, y)) }; }
-  isFreeAt(x, y, ignore) { const g2 = CONFIG.place.gap ** 2; return this.heroes.every(h => h === ignore || (h.x - x) ** 2 + (h.y - y) ** 2 >= g2); }
+  clampPos(x, y) { const P = this.L.place; return { x: Math.max(P.x0, Math.min(P.x1, x)), y: Math.max(P.y0, Math.min(P.y1, y)) }; }
+  isFreeAt(x, y, ignore) { const g2 = CONFIG.placeGap ** 2; return this.heroes.every(h => h === ignore || (h.x - x) ** 2 + (h.y - y) ** 2 >= g2); }
   heroAt(x, y, r = 34) { let best = null, bd = r * r; for (const h of this.heroes) { const d = (h.x - x) ** 2 + (h.y - y) ** 2; if (d <= bd + 1) { bd = d; best = h; } } return best; }
   coverage(x, y, range) { let c = 0; for (const p of this.pathSamples) if ((p.x - x) ** 2 + (p.y - y) ** 2 <= range * range) c++; return c; }
 
@@ -689,7 +769,7 @@ class JamraGame {
     // 대잠라 모드 영웅은 중복 생성 금지 → 공명(무료 레벨업)
     // 버튼으로 소환한 영웅과 같은 등급이 또 나오면 → 공명(그 등급 무료 레벨업)
     if (grade >= 8) {
-      const owner = this.heroes.find(h => h.def.grade === grade && (grade === 10 ? h.fromCreator : h.fromMode));
+      const owner = this.heroes.find(h => h.def.grade === grade && (grade === 11 ? h.fromGod : grade === 10 ? h.fromCreator : h.fromMode));
       if (owner) {
         this.gold -= CONFIG.drawCost; this.draws++;
         const bonus = 0;
@@ -773,6 +853,17 @@ class JamraGame {
   }
 
   // 원하는 좌표로 이동. 다른 영웅과 겹쳐도 됨
+  // 등급 일괄 방출 (버튼으로 소환한 영웅은 제외)
+  sellableOfGrade(g) { return this.heroes.filter(h => h.def.grade === g && !this.isLocked(h)); }
+  sellGrade(g) {
+    const list = this.sellableOfGrade(g);
+    if (!list.length) return { ok: false, reason: '방출할 영웅이 없다' };
+    let value = 0;
+    for (const h of list) { value += this.sellValue(h); this.heroes.splice(this.heroes.indexOf(h), 1); }
+    this.gold += value; this._statsDirty = true;
+    return { ok: true, count: list.length, value, heroes: list };
+  }
+
   moveHero(uid, x, y) {
     const h = this.heroes.find(e => e.uid === uid); if (!h) return { ok: false };
     const p = this.clampPos(x, y); h.x = p.x; h.y = p.y;
@@ -794,6 +885,14 @@ class JamraGame {
     if (this.freeCount() < 1) return { ok: false, reason: '빈자리 1칸 필요' };
     this.creatorUses++;
     const h = this.addHero(HERO_BY_ID.creator, false); h.fromCreator = true;
+    return { ok: true, hero: h };
+  }
+
+  summonGod() {
+    if (this.godUses >= CONFIG.godMax) return { ok: false, reason: '절대잠라신은 이미 소환했다' };
+    if (this.freeCount() < 1) return { ok: false, reason: '빈자리 1칸 필요' };
+    this.godUses++;
+    const h = this.addHero(HERO_BY_ID.absolute, false); h.fromGod = true;
     return { ok: true, hero: h };
   }
 
@@ -899,7 +998,11 @@ class JamraGame {
     if (!alive.length) return false;
     const mul = h.def.ult.mul * st.skillMul * st.ultMul;
     this.emit('ult', { hero: h, name: h.def.ult.name });
-    for (const e of alive) this.damage(h, st, e, mul, { ult: !h.def.ult.bossFull, noCrit: true });
+    const sleep = h.def.ult.sleep;
+    for (const e of alive) {
+      if (sleep) { e.slowT = Math.max(e.slowT, sleep); e.slowMul = 0; e.sleeping = sleep; }
+      this.damage(h, st, e, mul, { ult: !h.def.ult.bossFull, noCrit: true });
+    }
     return true;
   }
 
@@ -922,6 +1025,7 @@ class JamraGame {
       if (e.dead) continue;
       let sp = e.speed;
       if (e.slowT > 0) { e.slowT -= dt; sp *= e.slowMul; }
+      if (e.sleeping > 0) e.sleeping -= dt;
       e.dist += sp * dt;
       if (e.flash > 0) e.flash -= dt;
       if (e.dist >= this.path.total) {
@@ -978,6 +1082,7 @@ const GRADES = CONFIG.grades;
 const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const RAINBOW = ['#ff5e5e', '#ffd23f', '#5effa0', '#58adff', '#c06cff'];
 const PRISM = ['#ffffff', '#ffe9a8', '#ffc4f2', '#bdf3ff', '#d9c4ff']; // 창조자 무지갯빛
+const GOLDS = ['#fff3a3', '#ffffff', '#ffd23f', '#fff8dc', '#ffe066']; // 신 금빛
 
 function fmt(n) {
   n = Math.floor(n);
@@ -990,7 +1095,7 @@ function fmt(n) {
 }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const lvColor = (l, t = 0) => l >= 30 ? RAINBOW[Math.floor(t * 6) % 5] : l >= 20 ? '#8ff3ff' : l >= 10 ? '#ffd23f' : '#fff4d9';
-const gradeColor = (g, t = 0) => g === 7 ? RAINBOW[Math.floor(t * 6) % RAINBOW.length] : g === 10 ? PRISM[Math.floor(t * 4) % PRISM.length] : GRADES[g].color;
+const gradeColor = (g, t = 0) => g === 7 ? RAINBOW[Math.floor(t * 6) % RAINBOW.length] : g === 10 ? PRISM[Math.floor(t * 4) % PRISM.length] : g === 11 ? GOLDS[Math.floor(t * 3) % GOLDS.length] : GRADES[g].color;
 
 /* ================= 사운드 (WebAudio 합성, 외부 파일 없음) ================= */
 const Sound = {
@@ -1028,23 +1133,25 @@ const Sound = {
   leak() { this.tone(140, 0.3, 'sawtooth', 0.15, 0, 0.5); },
   boss() { for (let i = 0; i < 4; i++) { this.tone(880, 0.09, 'square', 0.1, i * 0.18); this.tone(660, 0.09, 'square', 0.1, i * 0.18 + 0.09); } },
   skill() { if (!this.throttle('skill', 120)) return; this.tone(220, 0.25, 'sine', 0.2, 0, 0.4); this.noise(0.2, 0.12, 0, 900); },
+  godUlt() { [523, 440, 349, 262].forEach((f, i) => this.tone(f, 0.9, 'sine', 0.16, i * 0.22)); this.tone(65, 2, 'sine', 0.35, 0, 0.7); this.noise(1.6, 0.18, 0, 1500); },
   creatorUlt() { this.noise(1.8, 0.45, 0, 4000); [262, 330, 392, 523, 659, 784, 1047].forEach((f, i) => this.tone(f, 1.4, 'sine', 0.11, 0.06 * i)); this.tone(40, 1.8, 'sine', 0.4, 0, 2); },
   ult() { this.noise(1.4, 0.5, 0, 500); this.tone(60, 1.4, 'sawtooth', 0.35, 0, 0.3); [523, 659, 784, 1047, 1319].forEach((f, i) => this.tone(f, 0.6, 'triangle', 0.12, 0.05 * i)); },
   reveal(g) {
-    const base = [262, 294, 330, 349, 392, 440, 494, 523, 587, 659, 698][g];
+    const base = [262, 294, 330, 349, 392, 440, 494, 523, 587, 659, 698, 784][g];
     if (g <= 1) { this.tone(base * 2, 0.15, 'triangle', 0.15); return; }
     if (g <= 4) { [0, 4, 7].forEach((s, i) => this.tone(base * Math.pow(2, s / 12) * 2, 0.25, 'triangle', 0.14, i * 0.07)); return; }
     const chord = g >= 8 ? [0, 4, 7, 11, 14, 19, 24] : [0, 4, 7, 12, 16];
     chord.forEach((s, i) => this.tone(base * Math.pow(2, s / 12), g >= 8 ? 1.8 : 0.9, 'triangle', 0.13, i * 0.09));
     if (g >= 7) this.noise(0.9, 0.25, 0, 3000);
     if (g >= 8) this.tone(55, 2.2, 'sine', 0.4, 0, 0.5);
+    if (g >= 11) { [0, 4, 7, 12, 16, 19, 24, 28, 31].forEach((s, i) => this.tone(base / 2 * Math.pow(2, s / 12), 3.2, 'triangle', 0.08, 0.9 + i * 0.15)); }
     if (g >= 10) { [0, 7, 12, 19, 24, 31, 36].forEach((s, i) => this.tone(base * Math.pow(2, s / 12), 2.6, 'sine', 0.1, 0.4 + i * 0.12)); this.noise(2, 0.3, 0, 6000); }
   },
   drone(dur) { this.tone(70, dur, 'sawtooth', 0.12, 0, 1.6); this.tone(105, dur, 'sine', 0.12, 0, 1.4); },
 };
 
 /* ================= 캐릭터 그리기 (오리지널 도형) ================= */
-const HERO_R = [15, 16, 17, 18, 19.5, 21, 22, 24, 27, 30, 34];
+const HERO_R = [15, 16, 17, 18, 19.5, 21, 22, 24, 27, 30, 34, 38];
 
 function blob(ctx, x, y, r, t, wob = 0.05, squash = 0.92) {
   ctx.beginPath();
@@ -1254,6 +1361,27 @@ function drawHero(ctx, def, x, y, R, t, o = {}) {
     star(ctx, x, y - R * 1.21, R * 0.14, R * 0.06, '#ffd23f', t);
     zzz(ctx, x + R * 1.0, y - R * 1.1, R * 0.9, t);
   }
+  if (def.id === 'absolute') {
+    // 등 뒤의 거대한 후광, 초승달, 별 왕관, 아주 평온하게 잠든 얼굴
+    ctx.save(); ctx.translate(x, y); ctx.rotate(t * 0.15);
+    for (let i = 0; i < 24; i++) {
+      ctx.rotate(Math.PI / 12); ctx.fillStyle = i % 2 ? 'rgba(255,243,163,.35)' : 'rgba(255,255,255,.25)';
+      ctx.beginPath(); ctx.moveTo(R * 0.9, -R * 0.08); ctx.lineTo(R * (2.3 + 0.2 * Math.sin(t * 2 + i)), 0); ctx.lineTo(R * 0.9, R * 0.08); ctx.fill();
+    }
+    ctx.restore();
+    ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = R * 0.09; ctx.globalAlpha = 0.9;
+    ctx.beginPath(); ctx.arc(x, y - R * 0.1, R * 1.3, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+    const gr3 = ctx.createRadialGradient(x - R * 0.3, y - R * 0.35, R * 0.05, x, y, R);
+    gr3.addColorStop(0, '#ffffff'); gr3.addColorStop(0.55, '#fff8dc'); gr3.addColorStop(1, '#ffd96a');
+    blob(ctx, x, y, R, t * 0.5, 0.03); ctx.fillStyle = gr3; ctx.fill();
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = R * 0.06; ctx.stroke();
+    eyes(ctx, x, y, R, 'sleepy', t); mouth(ctx, x, y, R, 'smile');
+    ctx.fillStyle = 'rgba(255,150,170,.35)'; for (const s2 of [-1, 1]) { ctx.beginPath(); ctx.ellipse(x + s2 * R * 0.55, y + R * 0.12, R * 0.12, R * 0.06, 0, 0, Math.PI * 2); ctx.fill(); }
+    for (let i = 0; i < 5; i++) star(ctx, x + (i - 2) * R * 0.32, y - R * 1.2 - (i === 2 ? R * 0.18 : i % 4 === 0 ? 0 : R * 0.08), R * (i === 2 ? 0.2 : 0.13), R * 0.06, '#ffd23f', t * 0.5 + i);
+    ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = R * 0.1; ctx.lineCap = 'round'; // 초승달
+    ctx.beginPath(); ctx.arc(x + R * 1.55, y - R * 0.95, R * 0.24, Math.PI * 0.55, Math.PI * 1.75); ctx.stroke();
+    zzz(ctx, x - R * 1.2, y - R * 1.0, R * 0.9, t);
+  }
   // 신화 이상 왕관
   if (g >= 7 && g <= 9 && def.id !== 'soul') {
     ctx.fillStyle = '#ffd23f'; const cy = y - R * (def.id === 'horizon' ? 1.25 : 1.15);
@@ -1314,6 +1442,7 @@ function drawEnemy(ctx, e, t) {
     ctx.fillStyle = '#ffd23f'; const cy = y - r * 1.25;
     ctx.beginPath(); ctx.moveTo(x - r * 0.5, cy + r * 0.25); ctx.lineTo(x - r * 0.5, cy - r * 0.15); ctx.lineTo(x - r * 0.25, cy + r * 0.05); ctx.lineTo(x, cy - r * 0.3); ctx.lineTo(x + r * 0.25, cy + r * 0.05); ctx.lineTo(x + r * 0.5, cy - r * 0.15); ctx.lineTo(x + r * 0.5, cy + r * 0.25); ctx.fill();
   }
+  if (e.sleeping > 0) { ctx.fillStyle = '#fff3a3'; ctx.font = `${r * 0.9}px "Black Han Sans", sans-serif`; ctx.textAlign = 'center'; ctx.fillText('z', x + r * 0.9, y - r - 2 - Math.sin(t * 4 + e.uid) * 3); }
   if (e.flash > 0) { ctx.globalAlpha = 0.6; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1; }
   if (e.slowT > 0) { ctx.strokeStyle = 'rgba(255,179,71,.8)'; ctx.lineWidth = 2; ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.arc(x, y, r * 1.3, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
   // 체력바
@@ -1329,14 +1458,23 @@ function drawEnemy(ctx, e, t) {
 class Renderer {
   constructor(canvas, game) {
     this.cv = canvas; this.ctx = canvas.getContext('2d'); this.game = game;
-    this.W = CONFIG.world.w; this.H = CONFIG.world.h;
+    this.syncLayout();
     this.fx = []; this.parts = []; this.texts = [];
     this.shakeT = 0; this.shakeI = 0; this.flashA = 0; this.flashCol = '#fff';
     this.sel = null; this.t = 0;
+    this.zoomT = 0; this.zoomMax = 1; this.zoomAmp = 0;
+  }
+  syncLayout() {
+    const L = this.game.L; this.W = L.w; this.H = L.h;
     this.stars = Array.from({ length: 70 }, () => ({ x: Math.random() * this.W, y: Math.random() * this.H, s: Math.random() * 1.6 + 0.3, p: Math.random() * 6 }));
   }
+  // 흔들림 대신: 부드러운 확대-복귀 펄스 + 빛 번짐
+  pulse(amp, dur) { if (REDUCED) amp *= 0.3; if (amp >= this.zoomAmp * (this.zoomT / (this.zoomMax || 1))) { this.zoomAmp = amp; this.zoomT = dur; this.zoomMax = dur; } }
+  bloom(x, y, r, col, life = 0.8, a = 0.55) { this.fx.push({ k: 'bloom', x, y, r, col, life, max: life, a }); }
   resize() {
     const box = this.cv.parentElement.getBoundingClientRect();
+    // 세로로 긴 화면이면 세로형 레이아웃으로 전환 (모바일 세로 화면에서 필드가 훨씬 커짐)
+    if (box.width > 0 && this.game.setPortrait(box.width < box.height * 0.92)) this.syncLayout();
     const sc = Math.max(0.2, Math.min(box.width / this.W, box.height / this.H));
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     this.cv.style.width = Math.floor(this.W * sc) + 'px'; this.cv.style.height = Math.floor(this.H * sc) + 'px';
@@ -1359,43 +1497,52 @@ class Renderer {
     const g = this.game;
     if (type === 'attack') {
       const h = d.hero, col = gradeColor(h.def.grade, this.t);
-      const kinds = { mallang: 'dart', ddu: 'orb', satan: 'slash', double: 'slash2', jamra: 'puff', djamra: 'puff', yuski: 'zip', horizon: 'beamDark', soul: 'wisp', god: 'beamCosmic', creator: 'beamCreator' };
+      const kinds = { mallang: 'dart', ddu: 'orb', satan: 'slash', double: 'slash2', jamra: 'puff', djamra: 'puff', yuski: 'zip', horizon: 'beamDark', soul: 'wisp', god: 'beamCosmic', creator: 'beamCreator', absolute: 'beamGod' };
       this.fx.push({ k: kinds[h.def.id] || 'dart', sx: d.sx, sy: d.sy - 6, tx: d.tx, ty: d.ty, life: 0.22, max: 0.22, col, aoe: d.aoe, g: h.def.grade });
       if (d.aoe) this.fx.push({ k: 'ring', x: d.tx, y: d.ty, r0: 6, r1: d.aoe, life: 0.35, max: 0.35, col, w: h.def.grade >= 8 ? 5 : 3 });
     } else if (type === 'hit') {
       Sound.hit(d.crit);
       const big = d.crit || d.grade >= 5;
+      if (this.fast && !d.crit) return; // 고속(×6 이상)에서는 치명타 숫자만 표시해서 가볍게
       if (big || this.texts.length < 18) this.text(d.x + (Math.random() - 0.5) * 14, d.y - 14, fmt(d.dmg) + (d.crit ? '!' : ''), { col: d.crit ? '#ffd23f' : '#ffffff', size: d.crit ? 17 : 12, life: 0.6 });
     } else if (type === 'kill') {
       Sound.coin();
       this.burst(d.x, d.y, d.kind === 'boss' ? '#ffd23f' : '#fff4d9', d.kind === 'boss' ? 40 : 7, d.kind === 'boss' ? 260 : 110);
       this.text(d.x, d.y - 4, '+' + d.gold + (d.bonus ? ' 영혼보너스!' : ''), { col: '#ffd23f', size: d.bonus || d.kind !== 'normal' ? 16 : 12, life: 0.9, force: d.kind !== 'normal' });
-      if (d.kind === 'boss') { this.shake(10, 0.6); this.flash('#ffd23f', 0.4); }
+      if (d.kind === 'boss') { this.pulse(0.025, 0.7); this.bloom(d.x, d.y, 260, '#ffd23f', 1.0, 0.7); this.flash('#ffd23f', 0.18); }
     } else if (type === 'skill') {
       Sound.skill();
       const col = gradeColor(d.hero.def.grade, this.t);
       if (d.blackhole) this.fx.push({ k: 'hole', x: d.x, y: d.y, r: d.radius, life: 1.2, max: 1.2 });
-      else this.fx.push({ k: 'ring', x: d.x, y: d.y, r0: 10, r1: d.radius, life: d.all ? 0.8 : 0.5, max: d.all ? 0.8 : 0.5, col, w: d.all ? 10 : 7, fill: true });
+      else {
+        this.fx.push({ k: 'wave', x: d.x, y: d.y, r: d.radius * 1.1, life: d.all ? 1.0 : 0.75, max: d.all ? 1.0 : 0.75, col });
+        this.bloom(d.x, d.y, d.radius * 1.3, col, d.all ? 0.9 : 0.6, d.all ? 0.55 : 0.4);
+      }
       this.text(d.x, d.y - 20, d.name + '!', { col, size: d.all ? 26 : 20, life: 1, force: true, vy: -25 });
-      this.shake(d.all ? 6 : 3, 0.25);
+      if (d.all) this.pulse(0.012, 0.5);
     } else if (type === 'ult') {
-      const cr = d.hero.def.id === 'creator';
-      if (cr) { Sound.creatorUlt(); this.shake(22, 1.2); this.flash('#fffaf0', 0.95); }
-      else { Sound.ult(); this.shake(18, 1.0); this.flash('#bff8ff', 0.85); }
-      for (const e of g.enemies) this.fx.push({ k: 'pillar', x: e.x, y: e.y, life: 0.9, max: 0.9 });
-      const s = d.hero;
-      this.fx.push({ k: 'ring', x: s.x, y: s.y, r0: 20, r1: 900, life: 1.1, max: 1.1, col: cr ? '#ffe9a8' : '#8ff3ff', w: 16 });
-      if (cr) this.fx.push({ k: 'ring', x: s.x, y: s.y, r0: 900, r1: 10, life: 1.2, max: 1.2, col: '#ffc4f2', w: 10 });
+      const id = d.hero.def.id, s = d.hero;
+      const col = id === 'absolute' ? '#fff3a3' : id === 'creator' ? '#ffe9a8' : '#8ff3ff';
+      if (id === 'absolute') Sound.godUlt(); else if (id === 'creator') Sound.creatorUlt(); else Sound.ult();
+      // 화면 흔들림 없이: 큰 빛 번짐 + 부드러운 확대 펄스 + 천천히 퍼지는 충격파
+      this.pulse(0.035, 1.1); this.flash(col, 0.3);
+      this.bloom(s.x, s.y, 1100, col, 1.4, 0.75);
+      this.fx.push({ k: 'wave', x: s.x, y: s.y, r: 1100, life: 1.4, max: 1.4, col });
+      for (const e of g.enemies) this.fx.push({ k: 'pillar', x: e.x, y: e.y, life: 1.0, max: 1.0, col });
+      if (id === 'creator') this.fx.push({ k: 'wave', x: s.x, y: s.y, r: 700, life: 1.8, max: 1.8, col: '#ffc4f2' });
+      if (id === 'absolute') for (const e of g.enemies) this.fx.push({ k: 'zzz', x: e.x, y: e.y, life: 1.6, max: 1.6 });
     } else if (type === 'leak') {
-      Sound.leak(); this.shake(5, 0.25); this.flash('#ff3355', 0.25);
-      this.text(60, 170, '-' + d.enemy.leak + ' 생명', { col: '#ff6b7c', size: 18, life: 1, force: true });
+      Sound.leak(); this.flash('#ff3355', 0.18);
+      const [lx, ly] = this.game.L.leakLabel;
+      this.text(lx, ly, '-' + d.enemy.leak + ' 생명', { col: '#ff6b7c', size: 18, life: 1, force: true });
     }
   }
 
   update(dt) {
     this.t += dt;
     this.shakeT = Math.max(0, this.shakeT - dt); if (!this.shakeT) this.shakeI = 0;
-    this.flashA = Math.max(0, this.flashA - dt * 1.6);
+    this.flashA = Math.max(0, this.flashA - dt * 1.1);
+    this.zoomT = Math.max(0, this.zoomT - dt);
     for (const f of this.fx) f.life -= dt;
     this.fx = this.fx.filter(f => f.life > 0);
     for (const p of this.parts) { p.life -= dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.92; p.vy *= 0.92; }
@@ -1407,38 +1554,46 @@ class Renderer {
   render() {
     const ctx = this.ctx, g = this.game, t = this.t;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, this.cv.width, this.cv.height);
-    let ox = 0, oy = 0;
-    if (this.shakeT > 0) { ox = (Math.random() - 0.5) * this.shakeI * 2; oy = (Math.random() - 0.5) * this.shakeI * 2; }
-    ctx.setTransform(this.k, 0, 0, this.k, ox * this.k, oy * this.k);
+    // 부드러운 확대 펄스 (sin 곡선으로 커졌다 돌아옴, 덜컹거림 없음)
+    const zp = this.zoomT > 0 ? Math.sin(Math.PI * (1 - this.zoomT / this.zoomMax)) * this.zoomAmp : 0;
+    const zk = this.k * (1 + zp), zx = -this.W / 2 * this.k * zp, zy = -this.H / 2 * this.k * zp;
+    ctx.setTransform(zk, 0, 0, zk, zx, zy);
 
     // 밤하늘 배경
     ctx.fillStyle = '#1f1750'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(0, 0, this.W, this.H, 22) : ctx.rect(0, 0, this.W, this.H); ctx.fill();
     for (const s of this.stars) { ctx.globalAlpha = 0.3 + 0.4 * Math.sin(t * 1.5 + s.p); ctx.fillStyle = '#fff4d9'; ctx.fillRect(s.x, s.y, s.s, s.s); }
     ctx.globalAlpha = 1;
     // 이불 필드
-    ctx.fillStyle = '#2b2170'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(110, 112, 500, 376, 28) : ctx.rect(110, 112, 500, 376); ctx.fill();
+    const L = g.L, [fx0, fy0, fw, fh] = L.field;
+    ctx.fillStyle = '#2b2170'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(fx0, fy0, fw, fh, 28) : ctx.rect(fx0, fy0, fw, fh); ctx.fill();
     ctx.strokeStyle = 'rgba(255,244,217,.07)'; ctx.lineWidth = 2; ctx.setLineDash([8, 10]);
-    for (let i = 1; i < 6; i++) { ctx.beginPath(); ctx.moveTo(110 + i * 83, 118); ctx.lineTo(110 + i * 83, 482); ctx.stroke(); }
+    for (let i = 1; i < 6; i++) { const lx = fx0 + i * fw / 6; ctx.beginPath(); ctx.moveTo(lx, fy0 + 6); ctx.lineTo(lx, fy0 + fh - 6); ctx.stroke(); }
     ctx.setLineDash([]);
 
     // 길
-    const P = CONFIG.path;
+    const P = L.path;
     ctx.lineJoin = 'round'; ctx.lineCap = 'round';
     ctx.strokeStyle = '#140f37'; ctx.lineWidth = 46; ctx.beginPath(); P.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
     ctx.strokeStyle = 'rgba(169,139,255,.25)'; ctx.lineWidth = 2; ctx.setLineDash([10, 14]); ctx.lineDashOffset = -t * 30;
     ctx.beginPath(); P.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.setLineDash([]);
     // 방어선 (잠라의 침대)
-    const [fx, fy] = P[P.length - 1];
-    ctx.fillStyle = '#ff8fb8'; ctx.fillRect(fx - 26, fy - 6, 52, 8);
-    ctx.fillStyle = 'rgba(255,143,184,.18)'; ctx.fillRect(fx - 26, fy - 2, 52, 30);
-    ctx.fillStyle = '#ffc8da'; ctx.font = '14px "Do Hyeon", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('방어선', fx, fy + 16);
-    ctx.fillStyle = 'rgba(255,244,217,.5)'; ctx.font = '13px "Do Hyeon", sans-serif'; ctx.fillText('알람 출몰', 40, 36);
+    {
+      // 마지막 구간 진행 방향에 수직인 분홍 띠 = 방어선
+      const [ax, ay] = P[P.length - 2], [fx, fy] = P[P.length - 1];
+      const dl = Math.hypot(fx - ax, fy - ay), ux = (fx - ax) / dl, uy = (fy - ay) / dl;
+      ctx.save(); ctx.translate(fx, fy); ctx.rotate(Math.atan2(uy, ux) + Math.PI / 2);
+      ctx.fillStyle = '#ff8fb8'; ctx.fillRect(-26, -6, 52, 8);
+      ctx.fillStyle = 'rgba(255,143,184,.18)'; ctx.fillRect(-26, -2, 52, 30);
+      ctx.restore();
+      ctx.fillStyle = '#ffc8da'; ctx.font = '14px "Do Hyeon", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('방어선', fx + ux * 42, fy + uy * 42);
+      ctx.fillStyle = 'rgba(255,244,217,.5)'; ctx.font = '13px "Do Hyeon", sans-serif'; ctx.fillText('알람 출몰', L.spawnLabel[0], L.spawnLabel[1]);
+    }
 
     // 드래그 중: 놓을 수 있는 영역 표시
     const dr = this.drag && this.drag.active ? this.drag : null;
     if (dr) {
-      const P = CONFIG.place;
+      const P = L.place;
       ctx.strokeStyle = 'rgba(169,139,255,.55)'; ctx.lineWidth = 2; ctx.setLineDash([6, 8]);
       ctx.strokeRect(P.x0 - 8, P.y0 - 8, P.x1 - P.x0 + 16, P.y1 - P.y0 + 16); ctx.setLineDash([]);
     }
@@ -1488,7 +1643,7 @@ class Renderer {
       ctx.fillStyle = lvColor(h.level, t); ctx.fillText(lvTxt, s.x, s.y + 31.5);
       const cd = h.def.ult ? [h.ultT, h.st.ultCd] : h.def.skill ? [h.skT, h.st.skillCd] : null;
       if (cd) { const p = 1 - Math.max(0, cd[0]) / cd[1]; ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillRect(s.x - 30, s.y + 40, 60, 3); ctx.fillStyle = h.def.ult ? '#8ff3ff' : '#a98bff'; ctx.fillRect(s.x - 30, s.y + 40, 60 * p, 3); }
-      if (h.def.grade >= 8 && Math.random() < 0.15) this.parts.push({ x: s.x + (Math.random() - 0.5) * 40, y: s.y + 10, vx: 0, vy: -30, life: 0.8, max: 0.8, col: h.def.grade === 10 ? PRISM[Math.floor(Math.random() * 5)] : h.def.grade === 9 ? '#8ff3ff' : '#fff6d8', size: h.def.grade === 10 ? 3 : 2 });
+      if (h.def.grade >= 8 && Math.random() < 0.15) this.parts.push({ x: s.x + (Math.random() - 0.5) * 40, y: s.y + 10, vx: 0, vy: -30, life: 0.8, max: 0.8, col: h.def.grade === 11 ? GOLDS[Math.floor(Math.random() * 5)] : h.def.grade === 10 ? PRISM[Math.floor(Math.random() * 5)] : h.def.grade === 9 ? '#8ff3ff' : '#fff6d8', size: h.def.grade === 10 ? 3 : 2 });
     }
 
     // 이펙트
@@ -1521,6 +1676,28 @@ class Renderer {
           const gr = ctx.createLinearGradient(f.sx, f.sy, f.tx, f.ty); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.5, '#ffe9a8'); gr.addColorStop(1, '#ffc4f2');
           ctx.strokeStyle = gr; ctx.lineWidth = 14 * (1 - p) + 4; ctx.beginPath(); ctx.moveTo(f.sx, f.sy); ctx.lineTo(f.tx, f.ty); ctx.stroke();
           star(ctx, f.tx, f.ty, 20, 8, '#fff', t * 5); break; }
+        case 'beamGod': {
+          ctx.strokeStyle = 'rgba(255,243,163,.9)'; ctx.lineWidth = 16 * (1 - p) + 4; ctx.beginPath(); ctx.moveTo(f.sx, f.sy); ctx.lineTo(f.tx, f.ty); ctx.stroke();
+          ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 5 * (1 - p) + 1; ctx.stroke();
+          star(ctx, f.tx, f.ty, 22, 9, '#ffd23f', t * 3); break; }
+        case 'bloom': {
+          // 부드러운 빛 번짐: 빠르게 퍼지고 천천히 사라짐 (ease-out)
+          const e = 1 - Math.pow(1 - p, 3), rr = f.r * (0.35 + 0.65 * e);
+          ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = f.a * (1 - p);
+          const gb = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, rr);
+          gb.addColorStop(0, f.col); gb.addColorStop(0.4, f.col + '66'); gb.addColorStop(1, f.col + '00');
+          ctx.fillStyle = gb; ctx.beginPath(); ctx.arc(f.x, f.y, rr, 0, Math.PI * 2); ctx.fill();
+          ctx.globalCompositeOperation = 'source-over'; break; }
+        case 'wave': {
+          // 부드러운 충격파: 두께가 점점 얇아지며 감속하며 퍼짐
+          const e = 1 - Math.pow(1 - p, 3), rr = 8 + f.r * e;
+          ctx.globalAlpha = (1 - p) * 0.9; ctx.strokeStyle = f.col; ctx.lineWidth = 3 + 18 * (1 - e);
+          ctx.beginPath(); ctx.arc(f.x, f.y, rr, 0, Math.PI * 2); ctx.stroke();
+          ctx.globalAlpha = (1 - p) * 0.35; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(f.x, f.y, rr * 0.82, 0, Math.PI * 2); ctx.stroke();
+          break; }
+        case 'zzz':
+          ctx.globalAlpha = 1 - p; ctx.fillStyle = '#fff3a3'; ctx.font = `${16 + p * 10}px "Black Han Sans", sans-serif`; ctx.textAlign = 'center';
+          ctx.fillText('Zz', f.x + p * 14, f.y - 20 - p * 30); break;
         case 'ring':
           ctx.strokeStyle = f.col; ctx.lineWidth = f.w * (1 - p) + 1;
           ctx.beginPath(); ctx.arc(f.x, f.y, f.r0 + (f.r1 - f.r0) * p, 0, Math.PI * 2); ctx.stroke();
@@ -1536,7 +1713,7 @@ class Renderer {
           break; }
         case 'pillar': {
           const w = 30 * (1 - p) + 6;
-          const gr = ctx.createLinearGradient(f.x, 0, f.x, f.y); gr.addColorStop(0, 'rgba(143,243,255,0)'); gr.addColorStop(1, '#ffffff');
+          const gr = ctx.createLinearGradient(f.x, 0, f.x, f.y); gr.addColorStop(0, (f.col || '#8ff3ff') + '00'); gr.addColorStop(1, '#ffffff');
           ctx.fillStyle = gr; ctx.fillRect(f.x - w / 2, 0, w, f.y);
           ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(f.x, f.y, w, 0, Math.PI * 2); ctx.fill(); break; }
       }
@@ -1621,7 +1798,7 @@ const Gacha = {
     setTimeout(() => { this.canSkip = true; this.skipEl.classList.add('on'); }, g >= 8 ? 1400 : 250);
 
     // 1) 등급 승급 연출: 방울 색이 한 단계씩 올라감
-    const stepMs = g <= 4 ? 150 : g <= 6 ? 220 : g <= 9 ? 260 : 230;
+    const stepMs = g <= 4 ? 150 : g <= 6 ? 220 : g <= 9 ? 260 : g === 10 ? 230 : 210;
     this.setBubble(0); Sound.step(0);
     if (g >= 2) this.bubble.classList.add('wobble');
     for (let s = 1; s <= g; s++) {
@@ -1652,6 +1829,17 @@ const Gacha = {
       await this.say('……', 700) || await this.say('온 세상의 잠라가 동시에 숨을 죽였다', 1100) ||
         await this.say('이불 밖은 위험하다는 그 말이, 이제야 이해된다', 1100, 'color:#fff6d8');
     }
+    if (g === 11 && !this.skip) {
+      // 신: 하얀 창조의 순간까지 가다가, 누군가 이불을 덮어주며 금빛으로
+      el.classList.add('creator'); el.classList.remove('rays'); this.bubble.style.display = 'none'; bg.style.background = '';
+      this.flash(); Sound.drone(6);
+      await this.say('꿈을 꾸던 창조자가 눈을 뜨려는 순간', 1100, 'color:#3a2a55') ||
+        await this.say('누군가 조용히 이불을 덮어주었다', 1200, 'color:#3a2a55');
+      if (!this.skip) {
+        el.classList.remove('creator'); el.classList.add('god'); this.pre.innerHTML = ''; this.flash();
+        await this.say('「모두 잘 자」', 1300, 'color:#7a4b00;font-family:var(--display);font-size:clamp(38px,9vw,78px)');
+      }
+    }
     if (g === 10 && !this.skip) {
       // 창조자: 우주(어둠) → 갑자기 모든 게 하얘짐
       el.classList.add('cosmic'); el.classList.remove('rays'); this.bubble.style.display = 'none'; bg.style.background = '';
@@ -1678,22 +1866,23 @@ const Gacha = {
     if (g >= 4) this.flash();
     if (g >= 8) { this.shake(true); el.classList.add('rays'); el.style.setProperty('--rc', g === 10 ? 'rgba(255,196,242,.45)' : g === 9 ? 'rgba(143,243,255,.3)' : 'rgba(255,246,216,.35)'); }
     if (g === 10) { el.classList.add('creator'); this.starfield(false); setTimeout(() => this.shake(true), 500); setTimeout(() => this.flash(), 450); }
+    if (g === 11) { el.classList.remove('creator'); el.classList.add('god'); el.style.setProperty('--rc', 'rgba(255,210,63,.45)'); setTimeout(() => this.flash(), 500); }
     else if (g >= 5) this.shake(false);
     Sound.reveal(g);
 
     const gc = g === 7 ? '#ff6b3d' : GRADES[g].color;
     const gradeEl = this.card.querySelector('.g-grade');
     gradeEl.textContent = GRADES[g].name + ' 등급' + (opt.label ? ` (${opt.label})` : '');
-    gradeEl.style.background = g === 7 ? 'linear-gradient(90deg,#ff5e5e,#ffd23f,#5effa0,#58adff,#c06cff)' : g === 9 ? 'linear-gradient(90deg,#8ff3ff,#c06cff,#ff8ff0)' : g === 10 ? 'linear-gradient(90deg,#fff,#ffe9a8,#ffc4f2,#bdf3ff,#fff)' : gc;
+    gradeEl.style.background = g === 7 ? 'linear-gradient(90deg,#ff5e5e,#ffd23f,#5effa0,#58adff,#c06cff)' : g === 9 ? 'linear-gradient(90deg,#8ff3ff,#c06cff,#ff8ff0)' : g === 10 ? 'linear-gradient(90deg,#fff,#ffe9a8,#ffc4f2,#bdf3ff,#fff)' : g === 11 ? 'linear-gradient(90deg,#ffd23f,#fff8dc,#ffd23f)' : gc;
     const nameEl = this.card.querySelector('.g-name');
     nameEl.textContent = def.name;
-    nameEl.style.fontSize = g === 10 ? 'clamp(30px, 7vw, 76px)' : g === 9 ? 'clamp(30px, 7.4vw, 70px)' : `${24 + g * 3.2}px`;
+    nameEl.style.fontSize = g === 11 ? 'clamp(44px, 11vw, 110px)' : g === 10 ? 'clamp(30px, 7vw, 76px)' : g === 9 ? 'clamp(30px, 7.4vw, 70px)' : `${24 + g * 3.2}px`;
     nameEl.style.color = g >= 7 ? '' : gc;
     nameEl.style.textShadow = g >= 5 && g < 7 ? `0 0 18px ${gc}` : g === 8 ? '0 0 24px #fff' : '';
     this.card.querySelector('.g-role').textContent = `${CONFIG.races[def.race].name}  /  ${def.role}`;
     this.card.querySelector('.g-desc').textContent = def.desc;
-    this.card.querySelector('.g-reso').textContent = res.resonance ? `${g === 10 ? '창조 공명' : '영혼 공명'}! ${GRADES[g].name} 등급 Lv.${res.hero.level}` : '';
-    this.cv.style.width = this.cv.style.height = (g >= 10 ? 260 : g >= 8 ? 230 : g >= 5 ? 200 : 160) + 'px';
+    this.card.querySelector('.g-reso').textContent = res.resonance ? `${g === 11 ? '신의 공명' : g === 10 ? '창조 공명' : '영혼 공명'}! ${GRADES[g].name} 등급 Lv.${res.hero.level}` : '';
+    this.cv.style.width = this.cv.style.height = (g >= 11 ? 290 : g >= 10 ? 260 : g >= 8 ? 230 : g >= 5 ? 200 : 160) + 'px';
     const stop = this.portrait(def);
     this.card.classList.add('on');
 
@@ -1753,7 +1942,7 @@ const Ranking = {
     if (this.state === 'loading') await sleep(1500);
     if (!this.db || !this.myId) return 'off';
     if (!this.mine) { try { const d = await this.db.doc('scores/' + this.myId).get(); if (d.exists) this.mine = d.data(); } catch (e) {} }
-    const rec = { wave: g.wave, kills: g.kills, draws: g.draws, bestGrade: g.bestGrade, mode: !!g.modeUsed, creator: !!g.creatorUsed };
+    const rec = { wave: g.wave, kills: g.kills, draws: g.draws, bestGrade: g.bestGrade, mode: !!g.modeUsed, creator: !!g.creatorUsed, god: !!g.godUsed };
     if (!this.better(rec, this.mine)) return 'notbest';
     const body = { ...rec, nick: (this.mine && this.mine.nick) || '', at: new Date().toISOString() };
     const ok = await this.write(body);
@@ -1799,7 +1988,7 @@ const Ranking = {
       const rk = document.createElement('div'); rk.className = 'rk'; rk.textContent = i + 1;
       const img = document.createElement(p.avatarUrl ? 'img' : 'div'); if (p.avatarUrl) { img.src = p.avatarUrl; img.alt = ''; } else img.style.cssText = `width:30px;height:30px;border-radius:50%;background:${p.color || '#544a8a'}`;
       const who = document.createElement('div'); who.className = 'who';
-      const b = document.createElement('b'); b.textContent = (r.nick || p.name || '이름 모를 잠라') + (r.mode ? ' 🌌' : '') + (r.creator ? ' ✨' : '') + (r.id === this.myId ? ' (나)' : '');
+      const b = document.createElement('b'); b.textContent = (r.nick || p.name || '이름 모를 잠라') + (r.mode ? ' 🌌' : '') + (r.creator ? ' ✨' : '') + (r.god ? ' 👑' : '') + (r.id === this.myId ? ' (나)' : '');
       const sp = document.createElement('span');
       sp.textContent = `처치 ${fmt(r.kills || 0)}, 뽑기 ${r.draws || 0}회` + (r.bestGrade >= 0 ? `, 최고 ${GRADES[r.bestGrade].name}` : '');
       who.append(b, sp);
@@ -1836,8 +2025,10 @@ const UI = {
     $('#btnMode').onclick = () => { if (this.game.modeUses >= CONFIG.modeMax) return this.toast(`대잠라 모드는 ${CONFIG.modeMax}번 다 썼다`); $('#modeModal').classList.add('on'); };
     $('#btnCreator').onclick = () => { if (this.game.creatorUses >= CONFIG.creatorMax) return this.toast('창조자는 이미 소환했다'); $('#creatorModal').classList.add('on'); };
     $('#btnCreatorGo').onclick = () => this.doCreator();
+    $('#btnGod').onclick = () => { if (this.game.godUses >= CONFIG.godMax) return this.toast('절대잠라신은 이미 소환했다'); $('#godModal').classList.add('on'); };
+    $('#btnGodGo').onclick = () => this.doGod();
     $('#btnModeGo').onclick = () => this.doMode();
-    $('#btnSpeed').onclick = () => { const sp = [1, 2, 3, 5]; this.speed = sp[(sp.indexOf(this.speed) + 1) % sp.length]; Sound.click(); this.refresh(); };
+    $('#btnSpeed').onclick = () => { const sp = [1, 2, 3, 4, 5, 6, 8, 10]; this.speed = sp[(sp.indexOf(this.speed) + 1) % sp.length]; Sound.click(); this.refresh(); };
     $('#btnPause').onclick = () => this.togglePause();
     $('#btnSound').onclick = () => { Sound.init(); Sound.on = !Sound.on; this.refresh(); };
     document.querySelectorAll('[data-close]').forEach(b => b.onclick = () => b.closest('.modal').classList.remove('on'));
@@ -1852,9 +2043,11 @@ const UI = {
       if (k === 'd' || k === ' ') { e.preventDefault(); if (Gacha.busy) Gacha.skip = Gacha.canSkip || Gacha.skip; else this.doDraw(); }
       else if (k === 'p') this.togglePause();
       else if (k === 'r') this.openRank();
-      else if (k === '1' || k === '2' || k === '3' || k === '5') { this.speed = +k; this.refresh(); }
+      else if ('1234568'.includes(k) && k.length === 1) { this.speed = +k; this.refresh(); }
+      else if (k === '0') { this.speed = 10; this.refresh(); }
       else if (k === 'escape') { this.select(null); document.querySelectorAll('.modal.on').forEach(m => { if (m.id !== 'start' && m.id !== 'over') m.classList.remove('on'); }); }
       else if (k === 'u' && this.r.sel) this.upgradeSel();
+      else if ((k === 'x' || k === 'delete' || k === 'backspace') && this.r.sel && e.shiftKey) { e.preventDefault(); const h = this.game.heroes.find(x => x.uid === this.r.sel); if (h) this.sellGradeAll(h.def.grade); }
       else if ((k === 'x' || k === 'delete' || k === 'backspace') && this.r.sel) { e.preventDefault(); this.sellSel(); }
       else if (k === 'tab' && this.game.started) { e.preventDefault(); this.cycleSel(e.shiftKey ? -1 : 1); }
     });
@@ -1875,22 +2068,27 @@ const UI = {
     $('#logList').hidden = tab !== 'recent'; $('#ownList').hidden = tab !== 'owned';
     if (tab === 'owned') this.renderOwned(true);
   },
-  ownedKey() { const g = this.game; return g.heroes.length + '|' + g.draws + '|' + g.gradeLv.join(','); },
+  ownedKey() { const g = this.game; return g.heroes.length + '|' + g.draws + '|' + g.gradeLv.join(',') + '|' + this.bulkArm; },
   renderOwned(force) {
     const g = this.game, key = this.ownedKey();
     if (!force && key === this.ownKey) return; this.ownKey = key;
     $('#ownList').innerHTML = HERO_BY_GRADE.map((h, i) => {
       const n = g.gradeCount(i), pulled = g.pullCounts[i];
+      const sellN = g.sellableOfGrade(i).length;
       return `<li class="${n ? '' : 'none'}"><i style="background:${gradeColor(i)}"></i><span class="nm" style="color:${n ? (i === 7 ? '#ff8a5c' : GRADES[i].color) : 'inherit'}">${h.name}</span><span class="cnt">${n}기</span>
-        <span class="sub2">${GRADES[i].name}, 뽑은 횟수 ${pulled}회, 강화 Lv.${g.gradeLv[i]}</span></li>`;
+        <span class="sub2">${GRADES[i].name}, 뽑은 횟수 ${pulled}회, 강화 Lv.${g.gradeLv[i]}</span>
+        ${sellN ? `<button class="sellall ${this.bulkArm === i ? 'armed' : ''}" data-grade="${i}">${this.bulkArm === i ? '정말?' : '모두 방출'}</button>` : ''}</li>`;
     }).join('');
+    $('#ownList').querySelectorAll('.sellall').forEach(b => b.onclick = () => this.sellGradeAll(+b.dataset.grade));
   },
   renderDex() {
     const g = this.game;
-    $('#dex').innerHTML = `<tr><th>등급</th><th>영웅</th><th class="n">확률</th><th class="n">보유</th><th class="n">뽑음</th><th class="n">강화</th></tr>` +
+    $('#dex').innerHTML = `<tr><th>등급</th><th>영웅</th><th class="n">확률</th><th class="n">보유</th><th class="n">뽑음</th><th class="n">강화</th><th></th></tr>` +
       HERO_BY_GRADE.map((h, i) => `<tr><td style="color:${i === 7 ? '#ff8a5c' : GRADES[i].color}">${GRADES[i].name}</td>
         <td class="hero" style="font-size:${14 + i * 1.3}px;color:${i === 7 ? '#ff8a5c' : GRADES[i].color}">${h.name}</td>
-        <td class="n">${GRADES[i].rate}%</td><td class="n">${g.gradeCount(i)}기</td><td class="n">${g.pullCounts[i]}회</td><td class="n">Lv.${g.gradeLv[i]}</td></tr>`).join('');
+        <td class="n">${GRADES[i].rate}%</td><td class="n">${g.gradeCount(i)}기</td><td class="n">${g.pullCounts[i]}회</td><td class="n">Lv.${g.gradeLv[i]}</td>
+        <td>${g.sellableOfGrade(i).length ? `<button class="sellall ${this.bulkArm === i ? 'armed' : ''}" data-grade="${i}">${this.bulkArm === i ? '정말?' : '모두 방출'}</button>` : ''}</td></tr>`).join('');
+    $('#dex').querySelectorAll('.sellall').forEach(b => b.onclick = () => this.sellGradeAll(+b.dataset.grade));
   },
   openRank() { Ranking.render(); $('#rankModal').classList.add('on'); },
 
@@ -1942,10 +2140,22 @@ const UI = {
     this.refresh();
   },
 
+  async doGod() {
+    $('#godModal').classList.remove('on');
+    if (Gacha.busy || !this.game.started || this.game.over) return;
+    const r = this.game.summonGod();
+    if (!r.ok) return this.toast(r.reason);
+    r.hero.hidden = true; this.refresh();
+    await Gacha.play({ grade: 11, def: r.hero.def, hero: r.hero }, { label: '신 소환' });
+    r.hero.hidden = false; r.hero.spawnT = 1;
+    this.r.burst(r.hero.x, r.hero.y, '#ffd23f', 90, 280);
+    this.refresh();
+  },
+
   addLog(item) {
     const ul = $('#logList'); const empty = ul.querySelector('.empty'); if (empty) empty.remove();
     const li = document.createElement('li');
-    const cls = item.grade >= 10 ? 'creator' : item.grade >= 9 ? 'cosmic' : item.grade === 8 ? 'origin' : item.grade === 7 ? 'myth' : item.grade >= 5 ? 'hi' : '';
+    const cls = item.grade >= 11 ? 'godlog' : item.grade >= 10 ? 'creator' : item.grade >= 9 ? 'cosmic' : item.grade === 8 ? 'origin' : item.grade === 7 ? 'myth' : item.grade >= 5 ? 'hi' : '';
     li.className = cls + (item.resonance ? ' reso' : '');
     li.innerHTML = `<i style="background:${gradeColor(item.grade)}"></i><span class="nm"></span><span class="gr">${GRADES[item.grade].name}</span>`;
     li.querySelector('.nm').textContent = item.name;
@@ -2007,6 +2217,29 @@ const UI = {
     this.select(rest.length ? rest[Math.min(idx, rest.length - 1)].uid : null); // 다음 영웅 자동 선택 → X 연타로 연속 방출
     this.refresh();
   },
+  // 등급 일괄 방출: 실수 방지로 2초 안에 한 번 더 눌러야 실행
+  sellGradeAll(grade) {
+    const g = this.game, list = g.sellableOfGrade(grade);
+    if (!list.length) { this.toast('방출할 수 있는 영웅이 없다'); return; }
+    const value = list.reduce((a, h) => a + g.sellValue(h), 0);
+    if (this.bulkArm !== grade) {
+      this.bulkArm = grade; clearTimeout(this.bulkArmT);
+      this.bulkArmT = setTimeout(() => { this.bulkArm = null; this.rerenderSellUIs(); }, 2000);
+      this.toast(`${GRADES[grade].name} ${list.length}기, 한 번 더 누르면 전부 방출 (+${fmt(value)})`); this.rerenderSellUIs(); return;
+    }
+    this.bulkArm = null;
+    const r = g.sellGrade(grade); if (!r.ok) return this.toast(r.reason);
+    for (const h of r.heroes) this.r.burst(h.x, h.y, '#ffd23f', 6, 100);
+    Sound.coin();
+    this.toast(`${GRADES[grade].name} ${r.count}기 방출, +${fmt(r.value)} 잠라석`, 'gold');
+    if (this.r.sel && !g.heroes.find(h => h.uid === this.r.sel)) this.select(null);
+    this.rerenderSellUIs(); this.refresh();
+  },
+  rerenderSellUIs() {
+    if (this.r.sel) this.renderSheet();
+    if (this.tab === 'owned') this.renderOwned(true);
+    if ($('#infoModal').classList.contains('on')) this.renderDex();
+  },
   sortedHeroes() { return this.game.heroes.slice().sort((a, b) => a.y - b.y || a.x - b.x); },
   cycleSel(dir) {
     const list = this.sortedHeroes(); if (!list.length) return;
@@ -2047,7 +2280,7 @@ const UI = {
     $('#sheet').innerHTML = `
       <div class="top"><canvas width="144" height="144"></canvas><div>
         <div class="nm" style="color:${d.grade === 7 ? '#ff8a5c' : col}">${d.name}</div>
-        <div class="meta">${GRADES[d.grade].name} / ${CONFIG.races[d.race].name} / ${d.role} / Lv.${h.level}${h.fromMode ? ' / 대잠라 모드' : ''}${h.fromCreator ? ' / 창조자 소환' : ''}</div>
+        <div class="meta">${GRADES[d.grade].name} / ${CONFIG.races[d.race].name} / ${d.role} / Lv.${h.level}${h.fromMode ? ' / 대잠라 모드' : ''}${h.fromCreator ? ' / 창조자 소환' : ''}${h.fromGod ? ' / 신 소환' : ''}</div>
       </div></div>
       <div class="desc">${d.desc}</div>
       <div class="share">강화는 ${GRADES[d.grade].name} 등급 전체에 공유된다. 지금 ${g.gradeCount(d.grade)}기에 적용, 새로 뽑거나 방출해도 레벨 유지.</div>
@@ -2057,12 +2290,15 @@ const UI = {
         <button class="btn" id="sSell" ${g.isLocked(h) ? 'disabled' : ''}>${this.sellArm === h.uid ? '정말?' : '방출'}<small>${g.isLocked(h) ? '불가' : '+' + g.sellValue(h) + ' (X)'}</small></button>
         <button class="btn" id="sClose">닫기<small>Esc</small></button>
       </div>
+      ${(() => { const n = g.sellableOfGrade(d.grade).length, v = g.sellableOfGrade(d.grade).reduce((a, x) => a + g.sellValue(x), 0);
+        return n ? `<button class="btn bulk" id="sBulk">${this.bulkArm === d.grade ? `정말 ${n}기 전부 방출?` : `${GRADES[d.grade].name} 등급 전부 방출 (${n}기)`}<small>+${fmt(v)} 잠라석 (Shift+X)</small></button>` : ''; })()}
       <div class="hint">영웅을 끌어서 원하는 곳에 놓기 (겹쳐 놓아도 됨)<br>U 강화 / X·Delete 방출 / Tab 다음 영웅 / Esc 닫기</div>`;
     const c = $('#sheet canvas').getContext('2d'); c.clearRect(0, 0, 144, 144); drawHero(c, d, 72, 80, 30, this.r.t);
     $('#sUp').onclick = () => this.upgradeSel();
     $('#sSell').onclick = () => this.sellSel();
+    if ($('#sBulk')) $('#sBulk').onclick = () => this.sellGradeAll(d.grade);
     $('#sClose').onclick = () => this.select(null);
-    this.sheetKey = `${h.uid}:${h.level}:${g.gold >= cost}:${this.sellArm}`;
+    this.sheetKey = `${h.uid}:${h.level}:${g.gold >= cost}:${this.sellArm}:${this.bulkArm}:${g.gradeCount(d.grade)}`;
   },
 
   renderResearch() {
@@ -2103,8 +2339,8 @@ const UI = {
     else if (type === 'ult') {
       const u = $('#ult'); u.querySelector('div').textContent = `「${d.name}」`;
       u.classList.toggle('creator', d.hero.def.id === 'creator');
+      u.classList.toggle('god', d.hero.def.id === 'absolute');
       u.classList.remove('on'); void u.offsetWidth; u.classList.add('on');
-      Gacha.shake(true);
     } else if (type === 'victory') { this.toast('50웨이브 돌파! 잠라가 우주 끝까지 숙면 중. 계속 가보자', 'gold'); }
     else if (type === 'gameOver') { setTimeout(() => this.showOver(), 600); }
   },
@@ -2145,14 +2381,16 @@ const UI = {
     const gc = g.globalCost();
     set('#globalSub', gc == null ? `Lv.${g.globalLv} 최대` : `Lv.${g.globalLv} → ${g.globalLv + 1}, ${fmt(gc)}`);
     $('#btnGlobal').disabled = gc == null || g.gold < gc || !g.started;
-    set('#researchSub', `말랑 ${g.research.mallang}  마귀 ${g.research.magwi}  잠라 ${g.research.jamra}`);
+    set('#researchSub', `말랑 ${g.research.mallang} 마귀 ${g.research.magwi} 잠라 ${g.research.jamra}`);
     $('#btnMode').classList.toggle('used', g.modeUses >= CONFIG.modeMax);
     set('#modeSub', `${g.modeUses}/${CONFIG.modeMax}회 사용`);
     $('#btnCreator').classList.toggle('used', g.creatorUses >= CONFIG.creatorMax);
     set('#creatorSub', g.creatorUses >= CONFIG.creatorMax ? '소환 완료' : '1회 한정');
+    $('#btnGod').classList.toggle('used', g.godUses >= CONFIG.godMax);
+    set('#godSub', g.godUses >= CONFIG.godMax ? '소환 완료' : '1회 한정');
     set('#speedSub', '×' + this.speed);
     set('#soundSub', Sound.on ? '켜짐' : '꺼짐');
-    $('#btnPause').firstChild.textContent = this.paused ? '계속하기' : '일시정지';
+    set('#pauseFull', this.paused ? '계속하기' : '일시정지'); set('#pauseShort', this.paused ? '계속' : '정지');
     set('#logCount', g.draws + '회');
     if (this.tab === 'owned') this.renderOwned();
     if ($('#infoModal').classList.contains('on') && this.dexKey !== this.ownedKey()) { this.dexKey = this.ownedKey(); this.renderDex(); }
@@ -2164,7 +2402,7 @@ const UI = {
     if (this.r.sel) {
       const h = g.heroes.find(x => x.uid === this.r.sel);
       const cost = h && g.upgradeCost(h);
-      if (!h || this.sheetKey !== `${h.uid}:${h.level}:${g.gold >= cost}:${this.sellArm}`) this.renderSheet();
+      if (!h || this.sheetKey !== `${h.uid}:${h.level}:${g.gold >= cost}:${this.sellArm}:${this.bulkArm}:${g.gradeCount(h.def.grade)}`) this.renderSheet();
     }
     if ($('#researchModal').classList.contains('on')) {
       const need = Object.keys(CONFIG.races).map(k => g.researchCost(k)).filter(c => c != null);
@@ -2179,6 +2417,7 @@ const UI = {
       let dt = real * this.speed;
       while (dt > 0) { const s = Math.min(1 / 30, dt); g.update(s); dt -= s; }
     }
+    this.r.fast = this.speed >= 6;
     this.r.update(Gacha.busy || this.paused ? real * 0.25 : real * (g.over ? 0.5 : Math.min(this.speed, 2)));
     this.r.render();
     this.frame = (this.frame || 0) + 1;
